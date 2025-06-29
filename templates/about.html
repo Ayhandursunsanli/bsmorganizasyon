@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BSM Ajans - Hakkımızda{% endblock %}
+
+{% block content %}
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Hakkımızda</h2>
+          <ol>
+            <li><a href="{% url 'bsmapp:index' %}">Anasayfa</a></li>
+            <li>Hakkımızda</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= About Us Section ======= -->
+    {% if about %}
+    <section id="about-us" class="about-us">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Hakkımızda</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6" data-aos="fade-right">
+            <h2>{{ about.title }}</h2>
+            {% if site_settings.logo_img %}
+            <img src="{{ site_settings.logo_img.url }}" alt="" class="img-fluid w-25">
+            {% endif %}
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
+            {{ about.desc|safe }}
+          </div>
+        </div>
+        <hr>
+        <div class="row d-flex justify-content-center">
+          <div class="col-10 mt-5">
+            {{ about.desc2|safe }}
+          </div>
+        </div>
+      </div>
+    </section><!-- End About Us Section -->
+    {% endif %}
+    <!-- ======= Our Team Section ======= -->
+    <section id="team" class="team section-bg">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Ekibimiz</h2>
+        </div>
+        <div class="row d-flex justify-content-center">
+          {% for uzman in uzmanlar %}
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member" data-aos="fade-up">
+              <div class="member-img">
+                <img src="{{ uzman.img.url }}" class="img-fluid" alt="">
+                <div class="social">
+                  {% for social_media in social_media %}
+                  <a href="{{ social_media.url }}" target="_blank"><i class="{{ social_media.icon }}" style="color: #21a9b9;"></i></a>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>{{ uzman.name }}</h4>
+                <span>{{ uzman.job }}</span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End Our Team Section -->
+
+    <!-- ======= Our Clients Section ana sayfadan alınacak ======= -->
+    <section id="clients" class="clients">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Müşterilerimiz</h2>
+        </div>
+
+        <div class="row no-gutters clients-wrap clearfix d-flex justify-content-center" data-aos="fade-up">
+          {% for client in clients %}
+          <div class="col-lg-3 col-md-4 col-6">
+            <div class="client-logo">
+              <img src="{{ client.clientslogoimg.url }}" class="img-fluid" alt="">
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End Our Clients Section -->
+
+  </main><!-- End #main -->
+{% endblock %}

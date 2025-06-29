@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BSM Ajans - Hizmetlerimiz{% endblock %}
+
+{% block content %}
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Hizmetlerimiz</h2>
+          <ol>
+            <li><a href="{% url 'bsmapp:index' %}">Anasayfa</a></li>
+            <li>Hizmetlerimiz</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Services Section ======= -->
+    
+    <section id="services" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Hizmetlerimiz</h2>
+        </div>
+        <div class="row">
+          {% for service in services %}
+          <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="services-card">
+              <div class="services-img">
+                <img src="{{ service.img.url }}" alt="Service 1" class="img-fluid">
+              </div>
+              <div class="services-content">
+                <h4>{{ service.title }}</h4>
+                <p>{{ service.desc|safe|truncatechars:150 }}</p>
+                <a href="{% url 'bsmapp:service_detail' service.pk %}" class="btn-services">Hizmete Git</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+      <!-- ======= Frequently Asked Questions Section Sorular ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Sıkça Sorulan Sorular</h2>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            {% for faq in faq %}
+            <li data-aos="fade-up">
+              <i class="bx bx-help-circle icon-help"></i>
+              <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq-{{ forloop.counter }}">
+                {{ faq.question }}
+                <i class="bx bx-chevron-down icon-show"></i>
+                <i class="bx bx-chevron-up icon-close"></i>
+              </a>
+              <div id="faq-{{ forloop.counter }}" class="collapse" data-bs-parent=".faq-list">
+                {{ faq.answer }}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        
+    </section><!-- End Frequently Asked Questions Section -->
+
+
+  </main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  <title>{% block title %}BSM Ajans | Fuar Hostesi, Tercüman, Garson, Catering ve Organizasyon Hizmetleri{% endblock %}</title>
+  
+  <meta name="description" content="BSM Ajans; fuar hostesi, stant personeli, tercüman, garson, catering hizmetleri ve düğün, kına gibi özel gün organizasyonlarına profesyonel personel temin eder. İstanbul merkezli ajansımız ile etkinliklerinizi kusursuz hale getirin.">
+  
+  <meta name="keywords" content="BSM Ajans, fuar hostesi, fuar garsonu, tercüman kiralama, stant personeli, organizasyon personeli, düğün garsonu, kına gecesi personeli, catering firması, etkinlik personel temini, İstanbul fuar hizmetleri, garson kiralama, kokteyl personeli, barista temini, hostes ajansı, etkinlik organizasyon desteği">
+
+  <!-- Favicons -->
+  {% if site_settings %}
+  <link href="{{ site_settings.logo_img.url }}" rel="icon">
+  {% endif %}
+  {% if site_settings %}
+  <link href="{{ site_settings.logo_img.url }}" rel="apple-touch-icon">
+  {% endif %}
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  {% block extra_css %}
+  <style>
+    .footer-logo {
+      max-height: 40px;
+      width: auto;
+      margin-bottom: 10px;
+    }
+    .btn-primary:active,
+    .btn-primary:focus,
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      background-color: #21a9b9 !important;
+      border-color: #21a9b9 !important;
+    }
+  </style>
+  {% endblock %}
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <!--<h1 class="logo me-auto"><a href="{% url 'bsmapp:index' %}"><span>Com</span>pany</a></h1> -->
+      <!-- Uncomment below if you prefer to use an image logo -->
+      {% if site_settings.logo_img %}
+      <a href="{% url 'bsmapp:index' %}" class="logo me-auto me-lg-0"><img src="{{ site_settings.logo_img.url }}" alt="" class="img-fluid"></a>
+      {% endif %}
+
+      <nav id="navbar" class="navbar order-last order-lg-0 m-auto">
+        <ul>
+          <li><a href="{% url 'bsmapp:index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">Anasayfa</a></li>
+          <li><a href="{% url 'bsmapp:about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">Hakkımızda</a></li>
+          <li><a href="{% url 'bsmapp:services' %}" class="{% if request.resolver_match.url_name == 'services' %}active{% endif %}">Hizmetlerimiz</a></li>
+          <li><a href="{% url 'bsmapp:portfolio' %}" class="{% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}">Galeri</a></li>
+          <li><a href="{% url 'bsmapp:blog' %}" class="{% if request.resolver_match.url_name == 'blog' %}active{% endif %}">Blog</a></li>
+          <li><a href="{% url 'bsmapp:contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">İletişim</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <div class="header-social-links d-flex">
+        {% for social_media in social_media %}
+        <a href="{{ social_media.url }}" class="{{ social_media.name }}" target="_blank"><i class="bu bi-{{ social_media.icon }}"></i></a>
+        {% endfor %}
+      </div>
+    </div>
+  </header><!-- End Header -->
+
+
+  <!-- whatsapp float -->
+  <a href="https://api.whatsapp.com/send?phone={{ site_settings.phone }}&text=Merhaba%2C%20size%20BSM%20Ajans%20sitenden%20ulaşıyorum." class="wp-float" target="_blank">
+    <i class="fa fa-whatsapp my-float"></i>
+  </a>
+
+
+  {% block content %}{% endblock %}
+
+  <!-- ======= Footer ======= -->
+  {% if site_settings %}
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 footer-contact">
+            {% if site_settings.logo_img %}
+            <h3><img src="{{ site_settings.logo_img.url }}" alt="Company Logo" class="footer-logo"></h3>
+            {% endif %}
+            <p>
+              {{ site_settings.company_address }} <br>
+              <strong>Telefon:</strong> +{{ site_settings.phone }}<br>
+              <strong>Email:</strong> {{ site_settings.email }}<br>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Site Haritası</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'bsmapp:index' %}">Anasayfa</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'bsmapp:about' %}">Hakkımızda</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'bsmapp:services' %}">Hizmetlerimiz</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'bsmapp:portfolio' %}">Portföyümüz</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'bsmapp:blog' %}">Blog</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'bsmapp:contact' %}">İletişim</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Hizmetlerimiz</h4>
+            <ul>
+              {% for service in services %}
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'bsmapp:service_detail' service.id %}">{{ service.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Bizimle İletişime Geçin</h4>
+            <p>Bizimle iletişime geçin ve projelerinize katılın.</p>
+            <a href="{% url 'bsmapp:contact' %}" class="btn btn-primary">İletişime Geçin</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+      <div class="me-md-auto text-center text-md-start">
+        <div class="copyright">
+          &copy; Copyright <strong><span>{{ site_settings.company_name }}</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Designed by <a href="https://www.oceanafyazilim.com/">Ocean AF Yazılım</a>
+        </div>
+      </div>
+      <div class="social-links text-center text-md-right pt-3 pt-md-0">
+        {% for social_media in social_media %}
+        <a href="{{ social_media.url }}" class="{{ social_media.name }}" target="_blank"><i class="bx bx-{{ social_media.icon }}"></i></a>
+        {% endfor %}
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+  {% endif %}
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html> 

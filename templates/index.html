@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BSM Ajans - Anasayfa{% endblock %}
+
+{% block content %}
+  <!-- ======= Hero Section ======= --> 
+  <section id="hero">
+    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+      <div class="carousel-inner" role="listbox">
+        {% for hero in hero %}
+        <!-- Slide 1 -->
+        <div class="carousel-item active" style="background-image: url({{ hero.heroimg.url }});">
+          <div class="carousel-container">
+            <div class="carousel-content animate__animated animate__fadeInUp">
+              <h2>{{ hero.herotitle }}</h2>
+              <p>{{ hero.herodesc }}</p>
+              <div class="text-center"><a href="{% url 'bsmapp:services' %}" class="btn-get-started">Göz At</a></div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+      </a>
+
+      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+    </div>
+  </section><!-- End Hero ana sayfa kısmı -->
+
+  <main id="main">
+    <!-- ======= About Us Section ======= -->
+    {% if about %}
+    <section id="about-us" class="about-us">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Hakkımızda</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6" data-aos="fade-right">
+            <h2>{{ about.title }}</h2>
+            {% if site_settings.logo_img %}
+            <img src="{{ site_settings.logo_img.url }}" alt="" class="img-fluid w-25">
+            {% endif %}
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
+            {{ about.desc|safe }}
+            <a href="{% url 'bsmapp:about' %}" class="btn btn-primary">Göz At</a>
+          </div>
+        </div>
+      </div>
+    </section><!-- End About Us Section -->
+    {% endif %}
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Hizmetlerimiz</h2>
+        </div>
+        <div class="row">
+          {% for service in services %}
+          {% if service.anasayfa %}
+          <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="services-card">
+              <div class="services-img">
+                <img src="{{ service.img.url }}" alt="Service 1" class="img-fluid">
+              </div>
+              <div class="services-content">
+                <h4>{{ service.title }}</h4>
+                <p>{{ service.desc|safe|truncatechars:150 }}</p>
+                <a href="{% url 'bsmapp:service_detail' service.pk %}" class="btn-services">Hizmete Git</a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+        <div class="section-title">
+          <h2>Galeri</h2>
+        </div>
+        <div class="row portfolio-container" data-aos="fade-up">
+          {% for gallery in gallery %}
+          <div class="col-lg-4 col-md-6 portfolio-item">
+            <img src="{{ gallery.img.url }}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>{{ gallery.title }}</h4>
+              <p>{{ gallery.title }}</p>
+              <a href="{{ gallery.img.url }}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ gallery.title }}"><i class="bx bx-book-open"></i></a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+    <!-- ======= Our Clients Section ======= -->
+    <section id="clients" class="clients">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Müşterilerimiz</h2>
+        </div>
+
+        <div class="row no-gutters clients-wrap clearfix d-flex justify-content-center" data-aos="fade-up">
+          {% for client in clients %}
+          <div class="col-lg-3 col-md-4 col-6">
+            <div class="client-logo">
+              <img src="{{ client.clientslogoimg.url }}" class="img-fluid" alt="">
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End Our Clients Section -->
+
+    <!-- ======= Frequently Asked Questions Section Sorular ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Sıkça Sorulan Sorular</h2>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            {% for faq in faq %}
+            <li data-aos="fade-up">
+              <i class="bx bx-help-circle icon-help"></i>
+              <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq-{{ forloop.counter }}">
+                {{ faq.question }}
+                <i class="bx bx-chevron-down icon-show"></i>
+                <i class="bx bx-chevron-up icon-close"></i>
+              </a>
+              <div id="faq-{{ forloop.counter }}" class="collapse" data-bs-parent=".faq-list">
+                {{ faq.answer }}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        
+    </section><!-- End Frequently Asked Questions Section -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Blog</h2>
+        </div>
+        <div class="row d-flex justify-content-start">
+          {% for blog in blog %}
+          <div class="col-lg-4 entries">
+            <article class="entry">
+              <div class="entry-img">
+                <img src="{{ blog.img.url }}" alt="" class="img-fluid">
+              </div>
+              <h2 class="entry-title">
+                <a href="{% url 'bsmapp:blog_single' blog.pk %}">{{ blog.title }}</a>
+              </h2>
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="{% url 'bsmapp:blog_single' blog.pk %}">{{ blog.author }}</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="{% url 'bsmapp:blog_single' blog.pk %}"><time datetime="2020-01-01">{{ blog.date|date:'d M Y' }}</time></a></li>
+                </ul>
+              </div>
+              <div class="entry-content">
+                {{ blog.desc|safe|truncatechars:150 }}
+                <div class="read-more">
+                  <a href="{% url 'bsmapp:blog_single' blog.pk %}">Devamını Oku</a>
+                </div>
+              </div>
+            </article><!-- End blog entry -->
+          </div><!-- End blog entries list -->
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End Blog Section -->
+  </main><!-- End #main -->
+{% endblock %}

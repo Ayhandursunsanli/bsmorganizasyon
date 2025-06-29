@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}BSM Ajans - Blog Detay{% endblock %}
+
+{% block content %}
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Blog Detay</h2>
+          <ol>
+            <li><a href="{% url 'bsmapp:index' %}">Anasayfa</a></li>
+            <li><a href="{% url 'bsmapp:blog' %}">Blog</a></li>
+            <li>Blog Detay</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Single Section ======= -->
+    {% if blog %}
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Blog Detay</h2>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-12 entries">
+
+            <article class="entry entry-single">
+
+              <div class="entry-img">
+                <img src="{{ blog.img.url }}" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="entry-title">
+                {{ blog.title }}
+              </h2>
+
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> {{ blog.author }}</li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time datetime="2020-01-01">{{ blog.date|date:'d M Y' }}</time></li>
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                {{ blog.desc|safe }}
+              </div>
+            </article><!-- End blog entry -->
+          </div><!-- End blog entries list -->
+        </div>
+      </div>
+    </section><!-- End Blog Single Section -->
+    {% endif %}
+
+    <!-- ======= Blog sayfasından gelecek, açık olan bloglar hariç sıralanacaak   ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Diğer Bloglar</h2>
+        </div>
+
+        <div class="row d-flex justify-content-start">
+          {% for blog in blogs %}
+          {% if item.pk != blog.pk %}
+          <div class="col-lg-4 entries">
+
+            <article class="entry">
+
+              <div class="entry-img">
+                <img src="{{ blog.img.url }}" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="entry-title">
+                <a href="{% url 'bsmapp:blog_single' blog.pk %}">{{ blog.title }}</a>
+              </h2>
+
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> {{ blog.author }}</li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time datetime="2020-01-01">{{ blog.date|date:'d M Y' }}</time></li>
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                {{ blog.desc|safe|truncatechars:150 }}
+                <div class="read-more">
+                  <a href="{% url 'bsmapp:blog_single' blog.pk %}">Devamını Oku</a>
+                </div>
+              </div>
+            </article><!-- End blog entry -->
+          {% endif %}
+          {% endfor %}
+          </div><!-- End blog entries list -->
+        </div>
+
+      </div>
+    </section><!-- End Blog Section -->
+  </main><!-- End #main -->
+{% endblock %}
